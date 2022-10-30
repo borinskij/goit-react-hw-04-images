@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Vortex } from 'react-loader-spinner';
 
-function Loader(props) {
+function Loader({ isLoader }) {
   return (
     <Vortex
-      visible={props.isLoader}
+      visible={isLoader}
       height="80"
       width="80"
       ariaLabel="vortex-loading"

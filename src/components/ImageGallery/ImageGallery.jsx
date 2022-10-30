@@ -1,39 +1,36 @@
-import ImageGalleryItem from 'components/ImageGalleryItem/ImageGalleryItem';
-import Modal from 'components/Modal/Modal';
+import { ImageGalleryItem } from 'components/ImageGalleryItem/ImageGalleryItem';
+import { Modal } from 'components/Modal/Modal';
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import css from './ImageGallery.module.css';
 
-export default class ImageGallery extends Component {
-  static propTypes = {
-    getData: PropTypes.arrayOf(PropTypes.object).isRequired,
+export const ImageGallery = ({ getData, children }) => {
+  const [data, setData] = useState('');
+  const [isModal, setIsModal] = useState(false);
+  const [keyDown, setKeyDown] = useState(false);
+
+  const openModal = data => {
+    // this.setState(prevState => ({ modal: !prevState.modal }));
+    setData(data);
+    setIsModal(!isModal);
+    setKeyDown(!keyDown);
   };
 
-  state = {
-    modal: false,
-  };
+  return (
+    <>
+      <ul className={css.gallery}>
+        <ImageGalleryItem getData={getData} openModal={openModal} />
+        {children}
+        {isModal && <Modal close={openModal} data={data} keyDown={keyDown} />}
+      </ul>
+    </>
+  );
+};
 
-  openModal = data => {
-    this.setState(prevState => ({ modal: !prevState.modal }));
-    this.setState({ data });
-  };
-  render() {
-    return (
-      <>
-        <ul className={css.gallery}>
-          <ImageGalleryItem
-            getData={this.props.getData}
-            openModal={this.openModal}
-          />
-          {this.props.children}
-          {this.state.modal && (
-            <Modal close={this.openModal} data={this.state.data} />
-          )}
-        </ul>
-      </>
-    );
-  }
-}
+ImageGallery.propTypes = {
+  getData: PropTypes.arrayOf(PropTypes.object).isRequired,
+  children: PropTypes.node.isRequired,
+};
 // openModal();
 
 // function ImageGallery({ getData, children }) {

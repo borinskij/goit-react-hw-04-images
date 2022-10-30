@@ -1,33 +1,38 @@
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+// import React, { useEffect } from 'react';
 import css from './Modal.module.css';
 
-export default class Modal extends Component {
-  static propTypes = {
-    data: PropTypes.string.isRequired,
-    close: PropTypes.func.isRequired,
-  };
-  componentDidMount() {
-    window.addEventListener('keydown', this.hendleKeyModalClose);
-  }
+export const Modal = ({ data, close, keyDown }) => {
+  // useEffect(() => {
+  //   window.addEventListener('keydown', hendleKeyModalClose);
+  // }, []);
 
-  hendleKeyModalClose = event => {
-    console.log('event :', event.code);
+  keyDown
+    ? window.addEventListener('keydown', hendleKeyModalClose)
+    : window.removeEventListener('keydown', hendleKeyModalClose);
+
+  function hendleKeyModalClose(event) {
+    console.log('event :', event);
     if (event.code === 'Escape') {
-      this.props.close();
+      close();
     }
-  };
-  componentWillUnmount() {
-    window.removeEventListener('keydown', this.hendleKeyModalClose);
   }
+  console.log('object :>> ', 'object');
+  // useEffect(() => {
+  //   const romoveEvent = () =>
+  //     window.removeEventListener('keydown', hendleKeyModalClose);
+  // }, []);
 
-  render() {
-    return (
-      <div className={css.overlay} onClick={this.props.close}>
-        <div className={css.modal}>
-          <img src={this.props.data} alt="ccc" />
-        </div>
+  return (
+    <div className={css.overlay} onClick={close}>
+      <div className={css.modal}>
+        <img src={data} alt="ccc" />
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
+Modal.propTypes = {
+  data: PropTypes.string.isRequired,
+  close: PropTypes.func.isRequired,
+  keyDown: PropTypes.bool.isRequired,
+};
