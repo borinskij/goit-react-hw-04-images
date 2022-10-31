@@ -17,7 +17,6 @@ export const Modal = ({ data, close, keyDown }) => {
       close();
     }
   }
-  console.log('object :>> ', 'object');
   // useEffect(() => {
   //   const romoveEvent = () =>
   //     window.removeEventListener('keydown', hendleKeyModalClose);

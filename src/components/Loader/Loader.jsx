@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Vortex } from 'react-loader-spinner';
 
-function Loader({ isLoader }) {
+const Loader = ({ isLoader }) => {
   return (
     <Vortex
       visible={isLoader}
@@ -12,7 +12,7 @@ function Loader({ isLoader }) {
       colors={['red', 'green', 'blue', 'yellow', 'orange', 'purple']}
     />
   );
-}
+};
 
 Loader.propTypes = { isLoader: PropTypes.bool.isRequired };
 

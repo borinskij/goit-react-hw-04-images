@@ -4,7 +4,7 @@ import css from './ImageGalleryItem.module.css';
 
 export const ImageGalleryItem = ({ getData, openModal }) => {
   const onClick = data => {
-    return openModal(data);
+    openModal(data);
   };
 
   return getData.map(data => {

@@ -10,23 +10,29 @@ export const App = () => {
   const [name, setName] = useState('');
   const [getPage, setGetPage] = useState(1);
   const [getData, setGetData] = useState([]);
-  const [isLoader, setIsLoader] = useState(true);
+  const [isLoader, setIsLoader] = useState(false);
 
   // useEffect(() => (setName(''), setGetPage(1), setGetData([])), []);
 
   useEffect(() => {
     const fetch = async () => {
       try {
-        setIsLoader(() => !isLoader);
+        setIsLoader(!isLoader);
         const fetchRezult = await getGalerry(name, getPage);
         setGetData([...getData, ...fetchRezult.hits]);
-        setIsLoader(() => !isLoader);
+
+        // setIsLoader(!isLoader);
       } catch (error) {
         console.log(error.message);
       }
     };
-    name ? fetch() : alert('Мерші до пошуку');
+    fetch();
+    setIsLoader(!isLoader);
+    // name ? fetch() : alert('Мерші до пошуку');
   }, [name, getPage]);
+
+  // console.log('name :>> ', name);
+  // console.log('getData :', getData);
 
   function hendelNextPage() {
     setGetPage(prevPage => (prevPage += 1));
@@ -34,8 +40,6 @@ export const App = () => {
   function hendelSubmit(name) {
     return setGetData([]), setName(name), setGetPage(1);
   }
-  console.log('name :>> ', name);
-  console.log('getData :', getData);
 
   return (
     <div className={css.app}>
