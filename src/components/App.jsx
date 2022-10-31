@@ -17,11 +17,11 @@ export const App = () => {
   useEffect(() => {
     const fetch = async () => {
       try {
-        setIsLoader(!isLoader);
+        // setIsLoader(!isLoader);
         const fetchRezult = await getGalerry(name, getPage);
         setGetData([...getData, ...fetchRezult.hits]);
 
-        setIsLoader(!isLoader);
+        // setIsLoader(!isLoader);
       } catch (error) {
         console.log(error.message);
       }
