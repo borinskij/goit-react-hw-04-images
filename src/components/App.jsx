@@ -17,18 +17,19 @@ export const App = () => {
   useEffect(() => {
     const fetch = async () => {
       try {
-        // setIsLoader(!isLoader);
+        setIsLoader(!isLoader);
         const fetchRezult = await getGalerry(name, getPage);
         setGetData([...getData, ...fetchRezult.hits]);
 
-        // setIsLoader(!isLoader);
+        setIsLoader(false);
       } catch (error) {
         console.log(error.message);
       }
       // setIsLoader(!isLoader);
     };
-    fetch();
+    if (name !== '') fetch();
     // name ? fetch() : alert('Мерші до пошуку');
+    // eslint-disable-next-line
   }, [name, getPage]);
 
   // console.log('name :>> ', name);
@@ -38,7 +39,9 @@ export const App = () => {
     setGetPage(prevPage => (prevPage += 1));
   }
   function hendelSubmit(name) {
-    return setGetData([]), setName(name), setGetPage(1);
+    setGetData([]);
+    setName(name);
+    setGetPage(1);
   }
 
   return (

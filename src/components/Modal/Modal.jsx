@@ -1,15 +1,15 @@
 import PropTypes from 'prop-types';
-// import React, { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import css from './Modal.module.css';
 
-export const Modal = ({ data, close, keyDown }) => {
-  // useEffect(() => {
-  //   window.addEventListener('keydown', hendleKeyModalClose);
-  // }, []);
-
-  keyDown
-    ? window.addEventListener('keydown', hendleKeyModalClose)
-    : window.removeEventListener('keydown', hendleKeyModalClose);
+export const Modal = ({ data, close }) => {
+  useEffect(() => {
+    window.addEventListener('keydown', hendleKeyModalClose);
+    return () => {
+      window.removeEventListener('keydown', hendleKeyModalClose);
+    };
+    // eslint-disable-next-line
+  }, []);
 
   function hendleKeyModalClose(event) {
     console.log('event :', event);
