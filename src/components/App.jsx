@@ -21,13 +21,13 @@ export const App = () => {
         const fetchRezult = await getGalerry(name, getPage);
         setGetData([...getData, ...fetchRezult.hits]);
 
-        // setIsLoader(!isLoader);
+        setIsLoader(!isLoader);
       } catch (error) {
         console.log(error.message);
       }
+      // setIsLoader(!isLoader);
     };
     fetch();
-    setIsLoader(!isLoader);
     // name ? fetch() : alert('Мерші до пошуку');
   }, [name, getPage]);
 
